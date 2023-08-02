@@ -1,0 +1,92 @@
+Description: SPL-200
+
+# Creates "Jingru's VPC" with an EC2 instance in us-west-2
+
+Resources:
+  JingrusVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      EnableDnsHostnames: true
+      EnableDnsSupport: true
+      CidrBlock: 10.0.0.0/16
+      Tags:
+        - Key: Name
+          Value: Jingru's VPC
+
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+
+  AttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref JingrusVPC
+      InternetGatewayId: !Ref InternetGateway
+
+  JingrusSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref JingrusVPC
+      MapPublicIpOnLaunch: true
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone: !Select
+        - "0"
+        - !GetAZs "us-west-2"
+      Tags:
+        - Key: Name
+          Value: Public Subnet 1
+
+  JingrusRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref JingrusVPC
+      Tags:
+        - Key: Name
+          Value: Route table for subnets
+
+  PublicRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref JingrusRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+
+  Subnet1RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref JingrusSubnet1
+      RouteTableId: !Ref JingrusRouteTable
+
+  SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security group for EC2 instance
+      VpcId: !Ref JingrusVPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-00970f57473724c10
+      InstanceType: t3.micro
+      SecurityGroupIds:
+        - !Ref SecurityGroup
+      SubnetId: !Ref JingrusSubnet1
+      UserData:
+        Fn::Base64: |
+          #!/bin/bash
+          yum update -y
+          yum install httpd -y
+          systemctl start httpd
+          systemctl enable httpd
+          echo '<html><h1>Hello From Your Web Server!</h1></html>' > /var/www/html/index.html
+          mv /etc/httpd/conf.d/welcome.conf /etc/httpd/conf.d/welcome.conf.disabled
+          systemctl restart httpd
+
+# Outputs:
+#   EC2InstanceId:
+#     Description: The ID of the EC2 instance
+#     Value: !Ref EC2Instance
