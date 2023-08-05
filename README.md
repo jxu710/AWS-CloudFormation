@@ -2,6 +2,6 @@
 
 ### `Lab 11` using CloudFormation 
 
-| Lab Requirement                           | CloudFormation Designer              |
+| draw.io                         | CloudFormation Designer              |
 | ----------------------------------------- | -----------------------------------   |
-| ![lab requirement](images/lab11-requirement.png) | ![cloudformation design](images/lab11-designer.png) | 
+| ![lab requirement](images/Lab11.drawio.svg) | ![cloudformation design](images/lab11-designer.png) | 
