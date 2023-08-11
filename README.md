@@ -4,7 +4,7 @@
 
 | draw.io                         | CloudFormation Designer              |
 | ----------------------------------------- | -----------------------------------   |
-| ![lab requirement](images/Lab11.drawio.svg) | ![cloudformation design](images/lab11-designer.png) | 
+| ![draw.io diagram](images/Lab11.drawio.svg) | ![cloudformation design](images/lab11-designer.png) | 
 
 ### Create `Lab 267` stack using CloudFormation Template 
 
@@ -12,4 +12,12 @@
 
 | draw.io                         | CloudFormation Designer              |
 | ----------------------------------------- | -----------------------------------   |
-| ![lab requirement](images/lab267.drawio.png) | ![cloudformation design](images/lab267-designer.png) | 
+| ![draw.io diagram](images/lab267.drawio.png) | ![cloudformation design](images/lab267-designer.png) | 
+
+### Create a s3 bucket named jxu08102023
+
+Use Management console to upload file to this specific bucket 
+
+<p align="center">
+  <img src="images/s3-bucket.png" alt="draw.io diagram">
+</p>
