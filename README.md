@@ -14,10 +14,12 @@
 | ----------------------------------------- | -----------------------------------   |
 | ![draw.io diagram](images/lab267.drawio.png) | ![cloudformation design](images/lab267-designer.png) | 
 
-### Create a s3 bucket named jxu08102023
+### Create a s3 bucket named jxu08102023 
 
 Use Management console to upload file to this specific bucket 
 
 <p align="center">
   <img src="images/s3-bucket.png" alt="draw.io diagram">
 </p>
+
+### 💾 Create a EBS Volume (1GB) and attach to an EC2 instance 
