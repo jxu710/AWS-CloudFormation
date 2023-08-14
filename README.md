@@ -23,3 +23,7 @@ Use Management console to upload file to this specific bucket
 </p>
 
 ### 💾 Create a EBS Volume (1GB) and attach to an EC2 instance 
+
+| draw.io                         | CloudFormation Designer              |
+| ----------------------------------------- | -----------------------------------   |
+| ![draw.io diagram](images/ebs-volume.drawio.png) | ![cloudformation design](images/ebs-volume.png) | 
